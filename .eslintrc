@@ -1,0 +1,36 @@
+{
+  "root": true,
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.js", "*.mjs"],
+      "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+      },
+      "parser": "@babel/eslint-parser",
+      "parserOptions": {
+        "ecmaVersion": 6,
+        "requireConfigFile": false,
+        "sourceType": "module"
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "tsconfig.json"
+      },
+      "plugins": ["@typescript-eslint"],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
+      ]
+    }
+  ]
+}
