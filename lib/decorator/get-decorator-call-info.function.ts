@@ -1,11 +1,5 @@
 import { AnyClass, ClassInstance } from '../misc';
-import {
-  is,
-  TYPEOF_FUNCTION,
-  TYPEOF_NUMBER,
-  TYPEOF_OBJECT,
-  TYPEOF_STRING,
-} from '../validation';
+import { is } from '../validation';
 
 import {
   DECORATOR_TYPE_ACCESSOR,
@@ -48,9 +42,9 @@ export function getDecoratorCallInfo<Class extends AnyClass>([
   | ParameterDecoratorInfo<Class>
   | StaticParameterDecoratorInfo<Class> {
   //////// For Class Target
-  if (is<Class>(TYPEOF_FUNCTION, target)) {
+  if (is<Class>(Function, target)) {
     // indeed a class target if no property
-    if (!property || !is(TYPEOF_STRING, property)) {
+    if (!property || !is(String, property)) {
       return {
         type: DECORATOR_TYPE_CLASS,
         target,
@@ -58,7 +52,7 @@ export function getDecoratorCallInfo<Class extends AnyClass>([
     }
 
     // if has 3rd parameter is index, then it's a static
-    if (is<number>(TYPEOF_NUMBER, descriptorOrIndex)) {
+    if (is(Number, descriptorOrIndex)) {
       return {
         type: DECORATOR_TYPE_STATIC_PARAMETER,
         target,
@@ -68,9 +62,9 @@ export function getDecoratorCallInfo<Class extends AnyClass>([
     }
 
     // if 3rd parameter is poperty descriptor
-    if (is<PropertyDescriptor>(TYPEOF_OBJECT, descriptorOrIndex)) {
+    if (is<PropertyDescriptor>(Object, descriptorOrIndex)) {
       // if descriptor value is function, then it's a method decorator call
-      if (is(TYPEOF_FUNCTION, descriptorOrIndex.value)) {
+      if (is(Function, descriptorOrIndex.value)) {
         return {
           type: DECORATOR_TYPE_STATIC_METHOD,
           target,
@@ -97,14 +91,14 @@ export function getDecoratorCallInfo<Class extends AnyClass>([
   }
 
   // if target is not an object or property is empty, then this is invalid
-  if (!is<ClassInstance<Class>>(TYPEOF_OBJECT, target) || !property) {
+  if (!is<ClassInstance<Class>>(Object, target) || !property) {
     return null;
   }
 
   //////// For Prototype Target
 
   // if has 3rd parameter is index, then it's a static
-  if (is<number>(TYPEOF_NUMBER, descriptorOrIndex)) {
+  if (is(Number, descriptorOrIndex)) {
     return {
       type: DECORATOR_TYPE_PARAMETER,
       target,
@@ -114,9 +108,9 @@ export function getDecoratorCallInfo<Class extends AnyClass>([
   }
 
   // if 3rd parameter is poperty descriptor
-  if (is<PropertyDescriptor>(TYPEOF_OBJECT, descriptorOrIndex)) {
+  if (is<PropertyDescriptor>(Object, descriptorOrIndex)) {
     // if descriptor value is function, then it's a method decorator call
-    if (is(TYPEOF_FUNCTION, descriptorOrIndex.value)) {
+    if (is(Function, descriptorOrIndex.value)) {
       return {
         type: DECORATOR_TYPE_METHOD,
         target,

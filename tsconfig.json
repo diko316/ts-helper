@@ -24,10 +24,5 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true
   },
-  "include": ["**/*.ts"],
-  "exclude": [
-    "dist",
-    "node_modules",
-    "tools"
-  ]
+  "include": ["lib/**/*.ts"]
 }

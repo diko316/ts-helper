@@ -1,49 +1,37 @@
 import { AnyType } from '../misc';
-import {
-  TYPEOF_ARRAY,
-  TYPEOF_BIGINT,
-  TYPEOF_BOOLEAN,
-  TYPEOF_DATE,
-  TYPEOF_ERROR,
-  TYPEOF_FUNCTION,
-  TYPEOF_NUMBER,
-  TYPEOF_OBJECT,
-  TYPEOF_REG_EXP,
-  TYPEOF_STRING,
-  TYPEOF_SYMBOL,
-  TYPEOF_UNDEFINED,
-} from './typeof.constant';
+import { PRIMITIVE_TYPE_MAP } from './is.constant';
+import { IsType, TestableType } from './is.type';
 
-import { TypeofType } from './typeof.type';
+export function is<ExpectedType, Type extends TestableType = TestableType>(
+  type: Type,
+  subject: AnyType
+): subject is ExpectedType extends IsType<Type> ? ExpectedType : IsType<Type> {
+  if (typeof type !== 'function') {
+    return false;
+  }
 
-const GET_OBJECT_SIGNATURE = Object.prototype.toString;
+  switch (type as TestableType) {
+    case Boolean:
+    case String:
+    case Number:
+    case BigInt:
+    case Symbol:
+    case Function:
+    case Object:
+      if (PRIMITIVE_TYPE_MAP[typeof subject] !== type) {
+        return false;
+      }
 
-export function is<ExpectedType>(
-  type: TypeofType,
-  subject?: ExpectedType | AnyType
-): subject is ExpectedType {
-  switch (type) {
-    case TYPEOF_UNDEFINED:
-    case TYPEOF_BOOLEAN:
-    case TYPEOF_STRING:
-    case TYPEOF_SYMBOL:
-    case TYPEOF_BIGINT:
-    case TYPEOF_FUNCTION:
-      return typeof subject === type;
-
-    case TYPEOF_NUMBER:
-      return typeof subject === TYPEOF_NUMBER && isFinite(subject);
-
-    case TYPEOF_OBJECT:
-      return subject !== null && typeof subject === type;
-
-    case TYPEOF_REG_EXP:
-    case TYPEOF_DATE:
-    case TYPEOF_ARRAY:
-    case TYPEOF_ERROR:
-      return GET_OBJECT_SIGNATURE.call(subject) === `[object ${type}]`;
+      switch (type as TestableType) {
+        case Number:
+          return isFinite(subject);
+        case Object:
+          return subject !== null;
+        default:
+          return true;
+      }
 
     default:
-      return false;
+      return subject instanceof type;
   }
 }
