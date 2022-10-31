@@ -35,3 +35,4 @@ export type TypeofType = Extract<
   BaseTypeof | NativeObjectTypeof,
   BaseTypeof | NativeObjectTypeof
 >;
+

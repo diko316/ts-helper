@@ -1,1 +1,3 @@
-export { default } from './rollup.lib.mjs';
+import { all } from './rollup.lib.mjs';
+
+export default all();

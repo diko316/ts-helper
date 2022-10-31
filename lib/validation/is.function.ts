@@ -1,3 +1,4 @@
+
 import { AnyType } from '../misc';
 import { PRIMITIVE_TYPE_MAP } from './is.constant';
 import { IsType, TestableType } from './is.type';

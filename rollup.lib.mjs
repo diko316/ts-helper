@@ -12,15 +12,6 @@ import { terser } from 'rollup-plugin-terser';
 // const rename = renamePlugin.default;
 // const renameExtension = renameExtensionPlugin.default;
 
-const settings = JSON.parse(readFileSync('./package.json'));
-const SRC_DIR = 'lib';
-const ENTRY_FILE = listFiles(`./${SRC_DIR}`, ['ts']);
-const MODULE_PREFIX = 'dist';
-const MODULE_NAME = settings.name.replace(/@[^/]+\//, '');
-const TS_CONFIG_FILE = fileExist('tsconfig.build.json')
-  ? `tsconfig.build.json`
-  : `tsconfig.json`;
-
 function listFiles(directory, extensions) {
   let list = readdirSync(directory);
 
@@ -48,21 +39,50 @@ function fileExist(path) {
   }
 }
 
-function createPlugins(options) {
+function getBuildInfo(options) {
   const config = options || {};
+  const isMonoRepo = config.isMonoRepo === true;
+  const settings = JSON.parse(readFileSync('./package.json'));
+  const fullModuleName = settings.name;
+  const moduleName = fullModuleName.replace(/@[^/]+\//, '');
+  const sourceDirectory = config.sourceDirectory || 'lib';
+  const relativeSourceDirectory =
+    config.relativeSourceDirectory || `./${sourceDirectory}`;
+  const relativeDestinationDirectory =
+    config.relativeDestinationDirectory || `./dist`;
+
+  return {
+    fullModuleName: fullModuleName,
+    moduleName: moduleName,
+    sourceDirectory: sourceDirectory,
+    relativeSourceDirectory: relativeSourceDirectory,
+    relativeDestinationDirectory: isMonoRepo
+      ? `${relativeDestinationDirectory}/${moduleName}`
+      : relativeDestinationDirectory,
+    entryFiles: config.entryFiles || listFiles(relativeSourceDirectory, ['ts']),
+    umdEntryFile: config.entryFile || `./${sourceDirectory}/index.ts`,
+    tsConfigFile: fileExist('tsconfig.build.json')
+      ? `tsconfig.build.json`
+      : `tsconfig.json`,
+  };
+}
+
+function createPlugins(options) {
+  const settings = options.buildSettings;
   const commonCompilerOptionOverrides = {
     paths: {},
     composite: false,
+    outDir: settings.relativeDestinationDirectory,
   };
-  const tsOverrides = config.emitDeclarations
+  const tsOverrides = options.emitDeclarations
     ? {
         useTsconfigDeclarationDir: true,
         tsconfigOverride: {
           compilerOptions: {
             ...commonCompilerOptionOverrides,
-            rootDir: `./${SRC_DIR}`,
+            rootDir: settings.relativeSourceDirectory,
             declaration: true,
-            declarationDir: './dist',
+            declarationDir: settings.relativeDestinationDirectory,
           },
         },
       }
@@ -85,16 +105,16 @@ function createPlugins(options) {
 
     // typescript
     typescript({
-      tsconfig: TS_CONFIG_FILE,
+      tsconfig: settings.tsConfigFile,
       clean: true,
       ...tsOverrides,
     }),
 
     // auto external
-    config.externals ? autoExternal() : null,
+    options.externals ? autoExternal() : null,
 
     // buble
-    config.es5
+    options.es5
       ? buble({
           objectAssign: true,
           include: ['**/*.js', '**/*.ts'],
@@ -103,33 +123,35 @@ function createPlugins(options) {
       : null,
 
     // rename directories
-    // config.renameDirectories
+    // options.renameDirectories
     //   ? rename({
     //       include: ['**/*.js', '**/*.js.map', '**/*.ts'],
     //       map: (name) => name.replace(`${SRC_DIR}/`, ''),
     //     })
     //   : null,
 
-    // config.renameExtension ? renameExtension(config.renameExtension) : null,
+    // options.renameExtension ? renameExtension(options.renameExtension) : null,
 
-    config.minify ? terser() : null,
+    options.minify ? terser() : null,
   ].filter((plugin) => !!plugin);
 }
 
 export function umd(options) {
   const overrides = options || {};
+  const buildSettings = getBuildInfo(options);
 
   return {
-    input: overrides.entryFile || `./${SRC_DIR}/index.ts`,
+    input: buildSettings.umdEntryFile,
     output: {
-      dir: `${MODULE_PREFIX}`,
+      dir: buildSettings.relativeDestinationDirectory,
       format: 'umd',
-      name: `$${MODULE_NAME}`,
+      name: `$${buildSettings.moduleName}`,
       esModule: false,
       sourcemap: true,
       ...(overrides.output || {}),
     },
     plugins: createPlugins({
+      buildSettings: buildSettings,
       renameDirectories: true,
       minify: true,
       es5: true,
@@ -140,11 +162,12 @@ export function umd(options) {
 
 export function cjs(options) {
   const overrides = options || {};
+  const buildSettings = getBuildInfo(options);
 
   return {
-    input: overrides.entryFile || ENTRY_FILE,
+    input: buildSettings.entryFiles,
     output: {
-      dir: `${MODULE_PREFIX}`,
+      dir: buildSettings.relativeDestinationDirectory,
       entryFileNames: '[name].cjs',
       format: 'cjs',
       exports: 'named',
@@ -153,6 +176,7 @@ export function cjs(options) {
       ...(overrides.output || {}),
     },
     plugins: createPlugins({
+      buildSettings: buildSettings,
       //renameDirectories: true,
       externals: true,
       es5: true,
@@ -164,11 +188,12 @@ export function cjs(options) {
 
 export function esm(options) {
   const overrides = options || {};
+  const buildSettings = getBuildInfo(options);
 
   return {
-    input: overrides.entryFile || ENTRY_FILE,
+    input: buildSettings.entryFiles,
     output: {
-      dir: `${MODULE_PREFIX}`,
+      dir: buildSettings.relativeDestinationDirectory,
       entryFileNames: '[name].mjs',
       format: 'esm',
       preserveModules: true,
@@ -176,6 +201,7 @@ export function esm(options) {
       ...(overrides.output || {}),
     },
     plugins: createPlugins({
+      buildSettings: buildSettings,
       renameDirectories: true,
       externals: true,
       emitDeclarations: true,
@@ -190,4 +216,6 @@ export function esm(options) {
   };
 }
 
-export default [umd(), cjs(), esm()];
+export function all(options) {
+  return [umd(options), cjs(options), esm(options)];
+}

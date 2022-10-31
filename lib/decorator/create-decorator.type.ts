@@ -13,7 +13,7 @@ import {
 
 // base decorator params
 interface ProcessDecoratorSettings<Settings> {
-  settings?: Settings;
+  settings: Settings;
 }
 
 // decorator processors

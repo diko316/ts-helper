@@ -19,20 +19,18 @@ import {
 import { getDecoratorCallInfo } from './get-decorator-call-info.function';
 import { DecoratorCallParameters } from './get-decorator-call-info.type';
 
-export function createDecorator<Settings>(
-  {
-    settings,
-    classDecorator,
-    propertyDecorator,
-    methodDecorator,
-    accessorDecorator,
-    parameterDecorator,
-    staticPropertyDecorator,
-    staticMethodDecorator,
-    staticAccessorDecorator,
-    staticParameterDecorator,
-  }: CreateDecoratorOptions<Settings>
-): UnifiedDecorator {
+export function createDecorator<Settings>({
+  settings,
+  classDecorator,
+  propertyDecorator,
+  methodDecorator,
+  accessorDecorator,
+  parameterDecorator,
+  staticPropertyDecorator,
+  staticMethodDecorator,
+  staticAccessorDecorator,
+  staticParameterDecorator,
+}: Partial<CreateDecoratorOptions<Settings>>): UnifiedDecorator {
   function decorator<Class extends AnyClass>(
     ...callParams: DecoratorCallParameters<Class>
   ): AnyType {
@@ -43,7 +41,7 @@ export function createDecorator<Settings>(
         if (classDecorator) {
           return classDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -52,7 +50,7 @@ export function createDecorator<Settings>(
         if (propertyDecorator) {
           return propertyDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -61,7 +59,7 @@ export function createDecorator<Settings>(
         if (staticPropertyDecorator) {
           return staticPropertyDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -70,7 +68,7 @@ export function createDecorator<Settings>(
         if (methodDecorator) {
           return methodDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -79,7 +77,7 @@ export function createDecorator<Settings>(
         if (staticMethodDecorator) {
           return staticMethodDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -88,7 +86,7 @@ export function createDecorator<Settings>(
         if (accessorDecorator) {
           return accessorDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -97,7 +95,7 @@ export function createDecorator<Settings>(
         if (staticAccessorDecorator) {
           return staticAccessorDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -106,7 +104,7 @@ export function createDecorator<Settings>(
         if (parameterDecorator) {
           return parameterDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
@@ -115,7 +113,7 @@ export function createDecorator<Settings>(
         if (staticParameterDecorator) {
           return staticParameterDecorator({
             ...info,
-            settings,
+            settings: settings as Settings,
           });
         }
         return;
