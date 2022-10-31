@@ -1,6 +1,6 @@
 import { polyfillMetadata } from './polyfill-metadata.function';
 
-const {
+export const {
   metadata,
   defineMetadata,
   getMetadata,
@@ -9,12 +9,3 @@ const {
   getOwnMetadata,
   hasOwnMetadata,
 } = polyfillMetadata();
-
-export {
-  metadata,
-  defineMetadata,
-  getMetadata,
-  hasMetadata,
-  getOwnMetadata,
-  hasOwnMetadata,
-};

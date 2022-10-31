@@ -1,3 +1,4 @@
+import { walkPrototype } from '../object/walk-prototype.function';
 import { hasOwnMetadata } from './has-own-metadata.function';
 import { isMetadataKey } from './is-metadata-key.function';
 import { isMetadataPropertyKey } from './is-metadata-property-key.function';
@@ -21,13 +22,9 @@ export function hasMetadata<ClassOrInstance extends MetadataTarget>(
     ? propertyKey
     : DEFAULT_METADATA_PROPERTY_KEY;
 
-  let currentTarget = target;
-
-  for (; currentTarget; currentTarget = Object.getPrototypeOf(currentTarget)) {
-    if (hasOwnMetadata(key, currentTarget, access)) {
-      return true;
-    }
+  function foundMetadata(currentTarget: MetadataTarget): boolean {
+    return hasOwnMetadata(key, currentTarget, access);
   }
 
-  return false;
+  return walkPrototype(target, foundMetadata) !== null;
 }
