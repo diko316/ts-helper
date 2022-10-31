@@ -1,9 +1,15 @@
-export * from './any.type';
-export * from './primitives.type';
+export { AnyType, AnyArray, AnyFunction, AnyObject } from './any.type';
+export {
+  Primitive,
+  PrimitiveScalar,
+  PrimitiveObject,
+  Scalar,
+  Empty,
+} from './primitives.type';
 
-export * from './list.type';
+export { ArrayLastItem, ArrayFirstItem } from './list.type';
 
-export * from './class.type';
-export * from './class.constant';
+export { ClassInstance, AnyClass } from './class.type';
+export { OBJECT_PROTOTYPE, FUNCTION_PROTOTYPE } from './class.constant';
 
-export * from './get-global.function';
+export { getGlobal } from './get-global.function';

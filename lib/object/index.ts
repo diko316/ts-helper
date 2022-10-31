@@ -1,2 +1,2 @@
-export * from './walk-prototype.type';
-export * from './walk-prototype.function';
+export { WalkPrototypeCallback } from './walk-prototype.type';
+export { walkPrototype } from './walk-prototype.function';

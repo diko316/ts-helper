@@ -1,2 +1,1 @@
-export * from './numberify.constant';
-export * from './numberify.function';
+export { numberify} from './numberify.function';

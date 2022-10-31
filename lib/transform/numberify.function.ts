@@ -1,18 +1,26 @@
-import { is } from '../validation';
+import {
+  IS_NUMERIC_STRING_PATTERN,
+  TYPEOF_NUMBER,
+  TYPEOF_STRING,
+} from '../validation';
 import { AnyType } from '../misc';
-import { NUMBER_PATTERN } from './numberify.constant';
 
 export function numberify<Result = undefined>(
   subject: AnyType,
   defaultValue?: Result
 ): Result | number {
-  if (is(Number, subject)) {
-    return subject;
-  }
+  switch (typeof subject) {
+    case TYPEOF_STRING:
+      return IS_NUMERIC_STRING_PATTERN.test(subject as string)
+        ? parseFloat(subject as string)
+        : (defaultValue as Result);
 
-  if (NUMBER_PATTERN.test(subject)) {
-    return parseFloat(subject);
-  }
+    case TYPEOF_NUMBER:
+      return isFinite(subject as number)
+        ? (subject as number)
+        : (defaultValue as Result);
 
-  return defaultValue as Result;
+    default:
+      return defaultValue as Result;
+  }
 }
