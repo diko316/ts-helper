@@ -1,2 +1,3 @@
 # ts-helper
-Typescript helpers
+
+Typescript helpers for my upcoming projects..
