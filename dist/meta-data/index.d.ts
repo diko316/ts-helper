@@ -1,0 +1,2 @@
+declare const metadata: typeof import("./metadata.decorator").metadata, defineMetadata: typeof import("./define-metadata.function").defineMetadata, getMetadata: typeof import("./get-metadata.function").getMetadata, hasMetadata: typeof import("./has-metadata.function").hasMetadata, getOwnMetadata: typeof import("./get-own-metadata.function").getOwnMetadata, hasOwnMetadata: typeof import("./has-own-metadata.function").hasOwnMetadata;
+export { metadata, defineMetadata, getMetadata, hasMetadata, getOwnMetadata, hasOwnMetadata, };

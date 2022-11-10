@@ -3,7 +3,7 @@
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {
-      "files": ["*.js", "*.mjs"],
+      "files": ["*.js", "*.mjs", "*.cjs"],
       "env": {
         "commonjs": true,
         "es6": true,

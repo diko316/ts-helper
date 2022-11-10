@@ -1,0 +1,2 @@
+import { CreateDecoratorOptions, UnifiedDecorator } from './create-decorator.type';
+export declare function createDecorator<Settings>({ settings, classDecorator, propertyDecorator, methodDecorator, accessorDecorator, parameterDecorator, staticPropertyDecorator, staticMethodDecorator, staticAccessorDecorator, staticParameterDecorator, }: Partial<CreateDecoratorOptions<Settings>>): UnifiedDecorator;

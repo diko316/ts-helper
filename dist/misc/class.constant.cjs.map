@@ -1,0 +1,1 @@
+{"version":3,"file":"class.constant.cjs","sources":["../../lib/misc/class.constant.ts"],"sourcesContent":["export const OBJECT_PROTOTYPE = Object.prototype;\n\nexport const FUNCTION_PROTOTYPE = Function.prototype;\n"],"names":[],"mappings":";;AAAa,IAAA,gBAAgB,GAAG,MAAM,CAAC,UAAU;AAEpC,IAAA,kBAAkB,GAAG,QAAQ,CAAC;;;;;"}

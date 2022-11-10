@@ -1,0 +1,1 @@
+{"version":3,"file":"class.constant.mjs","sources":["../../lib/misc/class.constant.ts"],"sourcesContent":["export const OBJECT_PROTOTYPE = Object.prototype;\n\nexport const FUNCTION_PROTOTYPE = Function.prototype;\n"],"names":[],"mappings":"AAAa,MAAA,gBAAgB,GAAG,MAAM,CAAC,UAAU;AAEpC,MAAA,kBAAkB,GAAG,QAAQ,CAAC;;;;"}

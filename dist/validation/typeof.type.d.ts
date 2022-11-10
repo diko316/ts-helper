@@ -1,0 +1,15 @@
+export declare type TypeofUndefined = 'undefined';
+export declare type TypeofBoolean = 'boolean';
+export declare type TypeofString = 'string';
+export declare type TypeofSymbol = 'symbol';
+export declare type TypeofNumber = 'number';
+export declare type TypeofBigint = 'bigint';
+export declare type TypeofObject = 'object';
+export declare type TypeofFunction = 'function';
+export declare type BaseTypeof = TypeofUndefined | TypeofBoolean | TypeofString | TypeofSymbol | TypeofNumber | TypeofBigint | TypeofObject | TypeofFunction;
+export declare type TypeofRegExp = 'RegExp';
+export declare type TypeofDate = 'Date';
+export declare type TypeofArray = 'Array';
+export declare type TypeofError = 'Error';
+export declare type NativeObjectTypeof = TypeofRegExp | TypeofDate | TypeofArray | TypeofError;
+export declare type TypeofType = Extract<BaseTypeof | NativeObjectTypeof, BaseTypeof | NativeObjectTypeof>;

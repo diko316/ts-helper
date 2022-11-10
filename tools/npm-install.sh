@@ -16,6 +16,7 @@ npm install --save-dev \
   @types/node \
   @typescript-eslint/eslint-plugin \
   @typescript-eslint/parser \
+  cpy-cli \
   eslint \
   eslint-config-prettier \
   jest \
@@ -35,5 +36,4 @@ npm install --save-dev \
   typescript
 
 npm install --save \
-  reflect-metadata \
   tslib

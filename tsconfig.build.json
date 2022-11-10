@@ -4,5 +4,6 @@
     "module": "ESNext",
     "target": "ES2019"
   },
+  "include": ["lib/**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }

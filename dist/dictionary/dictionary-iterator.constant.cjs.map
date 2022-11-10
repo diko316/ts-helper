@@ -1,0 +1,1 @@
+{"version":3,"file":"dictionary-iterator.constant.cjs","sources":["../../lib/dictionary/dictionary-iterator.constant.ts"],"sourcesContent":["export const DICTIONARY_ITERATOR_STATE_KEY = Symbol(\n  'dictionary:iterator_state'\n);\n"],"names":[],"mappings":";;IAAa,6BAA6B,GAAG,MAAM,CACjD,2BAA2B;;;;"}

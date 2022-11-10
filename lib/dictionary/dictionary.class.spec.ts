@@ -1,5 +1,5 @@
 import { createDictionary } from './create-dictionary.function';
-import { Dictionary } from './dictionary.class';
+import { Dictionary } from './dictionary.type';
 
 describe('dictionary/Dictionary', () => {
   const objectElement = { name: 'diko' };

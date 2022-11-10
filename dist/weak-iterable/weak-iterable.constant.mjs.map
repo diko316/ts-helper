@@ -1,0 +1,1 @@
+{"version":3,"file":"weak-iterable.constant.mjs","sources":["../../lib/weak-iterable/weak-iterable.constant.ts"],"sourcesContent":["import { AnyType } from \"../misc\";\n\nexport const WEAK_ITERABLE_LOOKUP = new WeakMap<Iterator<AnyType>, AnyType>();\n"],"names":[],"mappings":"AAEa,MAAA,oBAAoB,GAAG,IAAI,OAAO;;;;"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"is-numeric.constant.mjs","sources":["../../lib/validation/is-numeric.constant.ts"],"sourcesContent":["export const IS_NUMERIC_STRING_PATTERN =\n  /^[+-]?[0-9]+(\\.[0-9]+)?(e[+-]?[0-9])?$/;\n\nexport const IS_NUMERIC_INTEGER_STRING_PATTERN = /^[+-]?[0-9]+$/;\n"],"names":[],"mappings":"AAAO,MAAM,yBAAyB,GACpC,yCAAyC;AAEpC,MAAM,iCAAiC,GAAG;;;;"}

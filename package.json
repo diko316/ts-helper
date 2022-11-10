@@ -15,10 +15,11 @@
   "module": "dist/index.mjs",
   "browser": "dist/index.js",
   "directories": {
-    "lib": "dist/cjs"
+    "lib": "dist"
   },
   "files": [
     "dist/**/*.d.ts",
+    "dist/**/*.ts",
     "dist/**/*.cjs",
     "dist/**/*.cjs.map",
     "dist/**/*.mjs",
@@ -30,9 +31,11 @@
     "pretest": "npm run lint",
     "test": "jest --passWithNoTests --config=jest.config.js",
     "lint": "eslint -c .eslintrc lib/**",
+    "copy-source": "cpy 'lib/**/*.ts' '!lib/**/*.spec.ts' 'dist/'",
     "clean": "rimraf dist",
     "prebundle": "npm run clean",
     "bundle": "rollup -c rollup.config.mjs",
+    "postbundle": "run-s copy-source",
     "build": "run-s lint test bundle",
     "postinstall": "npm run build"
   },
@@ -57,6 +60,7 @@
     "@types/node": "^18.11.3",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
+    "cpy-cli": "^4.2.0",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^29.2.1",
@@ -76,7 +80,6 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "reflect-metadata": "^0.1.13",
     "tslib": "^2.4.0"
   }
 }

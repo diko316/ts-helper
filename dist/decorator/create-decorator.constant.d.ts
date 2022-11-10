@@ -1,0 +1,10 @@
+import { DecoratorTypeAccessorDecorator, DecoratorTypeClassDecorator, DecoratorTypeMethodDecorator, DecoratorTypeParameterDecorator, DecoratorTypePropertyDecorator, DecoratorTypeStaticAccessorDecorator, DecoratorTypeStaticMethodDecorator, DecoratorTypeStaticParameterDecorator, DecoratorTypeStaticPropertyDecorator } from './get-decorator-call-info.type';
+export declare const DECORATOR_TYPE_CLASS: DecoratorTypeClassDecorator;
+export declare const DECORATOR_TYPE_PROPERTY: DecoratorTypePropertyDecorator;
+export declare const DECORATOR_TYPE_STATIC_PROPERTY: DecoratorTypeStaticPropertyDecorator;
+export declare const DECORATOR_TYPE_METHOD: DecoratorTypeMethodDecorator;
+export declare const DECORATOR_TYPE_STATIC_METHOD: DecoratorTypeStaticMethodDecorator;
+export declare const DECORATOR_TYPE_ACCESSOR: DecoratorTypeAccessorDecorator;
+export declare const DECORATOR_TYPE_STATIC_ACCESSOR: DecoratorTypeStaticAccessorDecorator;
+export declare const DECORATOR_TYPE_PARAMETER: DecoratorTypeParameterDecorator;
+export declare const DECORATOR_TYPE_STATIC_PARAMETER: DecoratorTypeStaticParameterDecorator;
