@@ -1,6 +1,6 @@
 {
   "name": "@dikolab/ts-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript helpers for my upcoming projects",
   "publishConfig": {
     "access": "public"
@@ -38,8 +38,7 @@
     "prebundle": "npm run clean",
     "bundle": "rollup -c rollup.config.mjs",
     "postbundle": "run-s copy-source",
-    "build": "run-s lint test bundle",
-    "postinstall": "npm run build"
+    "build": "run-s lint test bundle"
   },
   "repository": {
     "type": "git",
