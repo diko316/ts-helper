@@ -1,17 +1,16 @@
-
-import { AnyType } from '../misc';
+import { AnyClass, AnyType } from '../misc';
 import { PRIMITIVE_TYPE_MAP } from './is.constant';
-import { IsType, TestableType } from './is.type';
+import { IsConstructors, IsType } from './is.type';
 
-export function is<ExpectedType, Type extends TestableType = TestableType>(
-  type: Type,
-  subject: AnyType
-): subject is ExpectedType extends IsType<Type> ? ExpectedType : IsType<Type> {
+export function is<
+  Type extends AnyType,
+  Constructor extends IsConstructors = AnyClass
+>(type: Constructor, subject: AnyType): subject is IsType<Constructor, Type> {
   if (typeof type !== 'function') {
     return false;
   }
 
-  switch (type as TestableType) {
+  switch (type as IsConstructors) {
     case Boolean:
     case String:
     case Number:
@@ -23,7 +22,7 @@ export function is<ExpectedType, Type extends TestableType = TestableType>(
         return false;
       }
 
-      switch (type as TestableType) {
+      switch (type as IsConstructors) {
         case Number:
           return isFinite(subject);
         case Object:

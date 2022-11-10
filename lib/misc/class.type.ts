@@ -7,6 +7,18 @@ export interface ClassType<Instance extends AnyObject, Params extends AnyArray>
   prototype: Instance;
 }
 
+export type ScalarConstructor<Type> = Type extends string
+  ? StringConstructor
+  : Type extends symbol
+  ? SymbolConstructor
+  : Type extends boolean
+  ? BooleanConstructor
+  : Type extends number
+  ? NumberConstructor
+  : Type extends bigint
+  ? BigIntConstructor
+  : never;
+
 export type AnyClass<
   Instance extends AnyType = AnyType,
   Params extends AnyArray = AnyArray

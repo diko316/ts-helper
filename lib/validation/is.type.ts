@@ -1,17 +1,6 @@
 import { AnyArray, AnyClass, AnyFunction } from '../misc';
-import {
-  TYPEOF_BIGINT,
-  TYPEOF_BOOLEAN,
-  TYPEOF_FUNCTION,
-  TYPEOF_NUMBER,
-  TYPEOF_OBJECT,
-  TYPEOF_STRING,
-  TYPEOF_SYMBOL,
-  TYPEOF_UNDEFINED,
-} from './typeof.constant';
 
-export type TestableType =
-  | string
+export type IsConstructors =
   | StringConstructor
   | SymbolConstructor
   | NumberConstructor
@@ -25,44 +14,30 @@ export type TestableType =
   | RegExpConstructor
   | AnyClass;
 
-export interface IsTypeMap {
-  [TYPEOF_UNDEFINED]: undefined;
-  [TYPEOF_BOOLEAN]: boolean;
-  [TYPEOF_STRING]: string;
-  [TYPEOF_SYMBOL]: symbol;
-  [TYPEOF_NUMBER]: number;
-  [TYPEOF_BIGINT]: bigint;
-  [TYPEOF_OBJECT]: object;
-  [TYPEOF_FUNCTION]: AnyFunction;
-}
-
-export type IsType<
-  Type extends TestableType,
-  Fallback = never
-> = Type extends StringConstructor
+export type IsType<Constructor, Fallback = never> = Constructor extends StringConstructor
   ? string
-  : Type extends string
+  : Constructor extends string
   ? string
-  : Type extends SymbolConstructor
+  : Constructor extends SymbolConstructor
   ? symbol
-  : Type extends NumberConstructor
+  : Constructor extends NumberConstructor
   ? number
-  : Type extends number
+  : Constructor extends number
   ? number
-  : Type extends BigIntConstructor
+  : Constructor extends BigIntConstructor
   ? bigint
-  : Type extends BooleanConstructor
+  : Constructor extends BooleanConstructor
   ? boolean
-  : Type extends ObjectConstructor
+  : Constructor extends ObjectConstructor
   ? object
-  : Type extends ArrayConstructor
+  : Constructor extends ArrayConstructor
   ? AnyArray
-  : Type extends FunctionConstructor
+  : Constructor extends FunctionConstructor
   ? AnyFunction
-  : Type extends DateConstructor
+  : Constructor extends DateConstructor
   ? Date
-  : Type extends ErrorConstructor
+  : Constructor extends ErrorConstructor
   ? Error
-  : Type extends RegExpConstructor
+  : Constructor extends RegExpConstructor
   ? RegExp
   : Fallback;

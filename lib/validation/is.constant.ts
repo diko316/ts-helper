@@ -1,4 +1,4 @@
-import { TestableType } from './is.type';
+import { IsConstructors } from './is.type';
 import {
   TYPEOF_BIGINT,
   TYPEOF_BOOLEAN,
@@ -9,7 +9,7 @@ import {
   TYPEOF_SYMBOL,
 } from './typeof.constant';
 
-export const PRIMITIVE_TYPE_MAP: Record<string, TestableType> = {
+export const PRIMITIVE_TYPE_MAP: Record<string, IsConstructors> = {
   [TYPEOF_STRING]: String,
   [TYPEOF_SYMBOL]: Symbol,
   [TYPEOF_NUMBER]: Number,

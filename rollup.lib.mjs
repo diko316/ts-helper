@@ -107,6 +107,7 @@ function createPlugins(options) {
     typescript({
       tsconfig: settings.tsConfigFile,
       clean: true,
+
       ...tsOverrides,
     }),
 

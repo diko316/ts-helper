@@ -17,8 +17,11 @@ export function walkPrototype<Target extends AnyClass | AnyObject>(
   let currentTarget: Target | null = target;
 
   for (; currentTarget; currentTarget = Object.getPrototypeOf(currentTarget)) {
-    if (callback(currentTarget) === true) {
-      return currentTarget;
+    const result = callback(currentTarget);
+
+    switch (result) {
+      case true: return currentTarget;
+      case false: return null;
     }
   }
 
