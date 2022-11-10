@@ -2,7 +2,6 @@
   "name": "@dikolab/ts-helper",
   "version": "1.0.0",
   "description": "Typescript helpers for my upcoming projects",
-  "private": true,
   "types": "index.d.ts",
   "typesVersions": {
     ">=4.2": {
